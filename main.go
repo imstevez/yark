@@ -1,29 +1,27 @@
 package main
 
 import (
-	"context"
+	"database/sql"
 	"log"
 	"net/http"
 	"nicego"
-	"yark/configs"
-	"yark/controllers"
-	"yark/models"
 )
 
 // Global variables
 var (
-	sqlDB *sql.DB
+	conf  map[string]interface{}
 	route *nicego.Route
-	ctx   context.Context
+	sqlDB *sql.DB
 )
 
 func main() {
-	applicationInit() // Initialize application
-	defer exit()      // Exit: recycling
+	// Exist application
+	defer doExit()
 
 	// Start HTTP server
-	log.Println("server runing...")
-	err := http.ListenAndServe(configs.Server["port"], route)
+	port := conf["server"].(map[string]interface{})["port"].(string)
+	log.Printf("server runing at %s...\n", port)
+	err := http.ListenAndServe(prot, route)
 	if err != nil {
 		log.Fatal(err)
 	}

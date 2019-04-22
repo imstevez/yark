@@ -2,7 +2,7 @@ package main
 
 import "log"
 
-func exit() {
+func doExit() {
 	log.Println("exit, bye.")
 	sqlDB.Close()
 }
