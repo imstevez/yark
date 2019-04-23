@@ -15,13 +15,10 @@ var (
 )
 
 func main() {
-	// Exist application
-	defer doExit()
-
-	// Start HTTP server
-	port := conf["server"].(map[string]interface{})["port"].(string)
-	log.Printf("server runing at %s...\n", port)
-	err := http.ListenAndServe(prot, route)
+	// Server configs
+	serverConf := conf["server"].(map[string]interface{})
+	// Run server
+	err := http.ListenAndServe(serverConf["port"].(string), route)
 	if err != nil {
 		log.Fatal(err)
 	}

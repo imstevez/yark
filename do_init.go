@@ -20,7 +20,9 @@ func init() {
 
 	// Create databae connections pool
 	sqlConf := conf["sql_db"].(map[string]interface{})
-	if db, err = models.NewSqlDB(sqlConf); err != nil {
+	if db, err := models.NewSqlDB(sqlConf); err != nil {
 		panic(fmt.Sprintf("application init: %v", err))
+	} else {
+		sqlDB = db
 	}
 }
